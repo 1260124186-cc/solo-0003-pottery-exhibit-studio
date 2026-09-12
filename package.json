@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "smoke": "node scripts/smoke-spatial.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
