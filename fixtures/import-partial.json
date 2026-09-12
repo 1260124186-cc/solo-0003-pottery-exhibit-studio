@@ -1,0 +1,92 @@
+{
+  "exhibitions": [
+    {
+      "id": "e-bad-missing",
+      "subtitle": "缺少 title、status、opening 等字段",
+      "curator": "测试策展人",
+      "closing": "2026-09-01",
+      "pieces": ["a-import-11"],
+      "description": "这条故意缺字段，应被拒绝。"
+    },
+    {
+      "id": "e-bad-ref",
+      "title": "引用不存在作品的展览",
+      "subtitle": "pieces 指向未导入的编号",
+      "curator": "测试策展人",
+      "status": "草稿",
+      "opening": "2026-02-01",
+      "closing": "2026-01-01",
+      "pieces": ["a-ghost"],
+      "description": "引用不存在的作品且开展晚于闭幕，应被拒绝。"
+    },
+    {
+      "id": "e1",
+      "title": "手的回声（重复编号）",
+      "subtitle": "编号与种子数据冲突",
+      "curator": "测试策展人",
+      "status": "草稿",
+      "opening": "2026-03-01",
+      "closing": "2026-04-01",
+      "pieces": [],
+      "description": "编号 e1 已被占用，应跳过而不是覆盖。"
+    },
+    {
+      "id": "e-import-good-02",
+      "title": "新泥·旧法",
+      "subtitle": "传统成型与当代釉色的并置",
+      "curator": "林策",
+      "status": "草稿",
+      "opening": "2026-10-01",
+      "closing": "2026-12-15",
+      "pieces": ["a-import-12", "a1"],
+      "description": "同时引用本批次新作品与既有作品，应成功导入。"
+    }
+  ],
+  "artworks": [
+    {
+      "id": "a-bad-type",
+      "title": "年份写成字符串的作品",
+      "artist": "某作者",
+      "material": "瓷",
+      "year": "二〇二六",
+      "note": 12345,
+      "tone": "#888888"
+    },
+    {
+      "id": "a1",
+      "title": "重复编号作品",
+      "artist": "某作者",
+      "material": "瓷",
+      "year": 2026,
+      "note": "编号 a1 已被占用。",
+      "tone": "#888888"
+    },
+    {
+      "id": "",
+      "title": "缺少编号的作品",
+      "artist": "某作者",
+      "material": "瓷",
+      "year": 2026,
+      "note": "id 为空字符串。",
+      "tone": "#888888"
+    },
+    {
+      "id": "a-import-11",
+      "title": "釉色样本十一",
+      "artist": "何一",
+      "material": "白瓷·青白釉",
+      "year": 2025,
+      "note": "这条本身合法，但只有失败的展览引用它，作品仍应导入。",
+      "tone": "#7d9296"
+    },
+    {
+      "id": "a-import-12",
+      "title": "铁绣花器",
+      "artist": "何一",
+      "material": "粗陶·铁釉",
+      "year": 2026,
+      "note": "釉面呈现铁锈般的结晶斑点。",
+      "tone": "#6f4a36"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "exhibitions": [
+    {
+      "id": "e-import-01",
+      "title": "柴窑的温度",
+      "subtitle": "落灰与火痕记录的三天三夜",
+      "curator": "许南",
+      "status": "草稿",
+      "opening": "2026-03-01",
+      "closing": "2026-05-20",
+      "pieces": ["a-import-01", "a-import-02"],
+      "description": "聚焦柴烧陶艺中火、灰、土共同塑造的偶发之美。"
+    },
+    {
+      "id": "e-import-02",
+      "title": "薄胎研究",
+      "subtitle": "当器物轻到只剩轮廓",
+      "curator": "许南",
+      "status": "预览中",
+      "opening": "2026-06-01",
+      "closing": "2026-08-31",
+      "pieces": ["a-import-01"],
+      "description": "呈现薄胎工艺在透光与结构之间的极限探索。"
+    }
+  ],
+  "artworks": [
+    {
+      "id": "a-import-01",
+      "title": "落灰茶碗",
+      "artist": "高桥理",
+      "material": "粗陶·柴烧",
+      "year": 2025,
+      "note": "碗肩处留下一道天然落灰釉。",
+      "tone": "#7a6a58"
+    },
+    {
+      "id": "a-import-02",
+      "title": "火痕花入",
+      "artist": "许南",
+      "material": "炻器·柴烧",
+      "year": 2025,
+      "note": "火路在器表留下由橙转灰的渐变。",
+      "tone": "#b06a3f"
+    }
+  ]
+}
