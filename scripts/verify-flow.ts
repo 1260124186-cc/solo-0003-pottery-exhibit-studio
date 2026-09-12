@@ -83,6 +83,18 @@ ok(flow.missingConditions(fresh).join('；').includes('展期有效'), '开幕�
 throws(() => svc.transition(d.id, '预览中'), '展期有效', '展期无效 → 预览中 被拒绝');
 svc.updateInfo(d.id, {opening: '2025-01-01', closing: '2025-03-01'});
 
+svc.updateInfo(d.id, {title: '   '});
+ok(!flow.isReady(fresh), '标题清空（纯空白）后完成度不通过');
+ok(
+  flow.missingConditions(fresh).includes('展览标题非空'),
+  '缺失清单包含“展览标题非空”',
+);
+throws(() => svc.transition(d.id, '预览中'), '展览标题非空', '草稿（标题空白）→ 预览中 被拒绝');
+ok(statusOf(svc, d.id) === '草稿', '标题为空被拒后保持草稿');
+ok(storedStatus() === '草稿', '标题为空被拒后本地存储仍是草稿');
+svc.updateInfo(d.id, {title: '测试展'});
+ok(flow.isReady(fresh), '恢复标题后完成度重新通过');
+
 console.log('\n[3] 合法前进链路');
 svc.transition(d.id, '预览中');
 ok(statusOf(svc, d.id) === '预览中', '草稿 → 预览中（条件满足）');
@@ -130,6 +142,11 @@ throws(() => svc.transition(d.id, '已上线'), '条件未满足', '无作品时
 ok(statusOf(svc, d.id) === '预览中', '上线失败后保持预览中');
 svc.togglePiece(d.id, 'a1'); // 重新加回
 ok(flow.isReady(fresh), '补齐作品后完成度恢复');
+svc.updateInfo(d.id, {title: ''});
+throws(() => svc.transition(d.id, '已上线'), '展览标题非空', '预览中（标题为空）→ 已上线 被拒绝');
+ok(statusOf(svc, d.id) === '预览中', '标题为空上线被拒后保持预览中');
+ok(storedStatus() === '预览中', '标题为空上线被拒后本地存储仍是预览中');
+svc.updateInfo(d.id, {title: '测试展'});
 svc.transition(d.id, '草稿', {confirmed: true});
 ok(statusOf(svc, d.id) === '草稿', '确认回退后 预览中 → 草稿');
 

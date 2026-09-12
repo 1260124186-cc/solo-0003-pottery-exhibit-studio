@@ -3,7 +3,7 @@ import type {Exhibition, ExhibitStatus} from './models';
 /**
  * 展览状态流转的唯一规则源。
  * 完成度面板、进入预览校验、上线校验、回退确认全部共用本文件，
- * 避免出现“面板说可以但状态却改不了”的矛盾。
+ * 避免出现“面板说可以但状态却改不了”的矛盾。（创建时也会校验标题非空。）
  *
  * 状态顺序：草稿 < 预览中 < 已上线
  * 合法流转（仅相邻一级，不允许跨级）：
@@ -30,14 +30,21 @@ const PREV_STATUS: Record<ExhibitStatus, ExhibitStatus | null> = {
 };
 
 export interface ChecklistItem {
-  key: 'pieces' | 'subtitle' | 'curator' | 'description' | 'dates';
+  key: 'title' | 'pieces' | 'subtitle' | 'curator' | 'description' | 'dates';
   label: string;
   ok: boolean;
 }
 
 type ExhibitionInfo = Pick<
   Exhibition,
-  'status' | 'pieces' | 'subtitle' | 'curator' | 'description' | 'opening' | 'closing'
+  | 'title'
+  | 'status'
+  | 'pieces'
+  | 'subtitle'
+  | 'curator'
+  | 'description'
+  | 'opening'
+  | 'closing'
 >;
 
 function filled(value: string): boolean {
@@ -46,12 +53,13 @@ function filled(value: string): boolean {
 
 /**
  * 完成度清单：进入预览与上线共用的同一套条件。
- * 1) 至少一件作品；2) 副标题；3) 策展人；4) 展览说明；5) 展期有效。
+ * 1) 标题非空；2) 至少一件作品；3) 副标题；4) 策展人；5) 展览说明；6) 展期有效。
  */
 export function completionChecklist(e: ExhibitionInfo): ChecklistItem[] {
   const datesOk =
     filled(e.opening) && filled(e.closing) && e.opening <= e.closing;
   return [
+    {key: 'title', label: '展览标题非空', ok: filled(e.title)},
     {key: 'pieces', label: '至少编排一件作品', ok: e.pieces.length > 0},
     {key: 'subtitle', label: '填写展览副标题', ok: filled(e.subtitle)},
     {key: 'curator', label: '填写策展人', ok: filled(e.curator)},
