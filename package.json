@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify:flow": "rolldown scripts/verify-flow.ts -f esm -p node -o node_modules/.tmp/verify-flow.mjs && STORE_FILE=node_modules/.tmp/exhibit-store.json node node_modules/.tmp/verify-flow.mjs"
   },
   "dependencies": {
     "vue": "^3.5.41"
