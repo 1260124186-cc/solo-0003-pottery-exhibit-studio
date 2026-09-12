@@ -1,12 +1,15 @@
 // Vite 8 自带 rolldown，用它把 TS 验证脚本打包成 ESM 临时文件后执行
 //（Node 20 无法直接运行 .ts）。不引入任何额外依赖。
-// 用法：node scripts/run-ts.mjs <entry.ts>
+// 用法：node scripts/run-ts.mjs <entry.ts> [--vue]
+// --vue 时加载 @vitejs/plugin-vue，供真实 StudioView.vue 的 SSR 回归使用。
 import { build } from 'rolldown';
+import vue from '@vitejs/plugin-vue';
 import { writeFileSync, rmSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
 const entry = process.argv[2];
+const useVue = process.argv.includes('--vue');
 if (!entry) throw new Error('缺少入口参数，例如：node scripts/run-ts.mjs scripts/verify-readiness.ts');
 
 const root = new URL('..', import.meta.url);
@@ -17,6 +20,8 @@ mkdirSync(new URL('./node_modules/.tmp/', root), { recursive: true });
 const result = await build({
   input: resolve(rootPath, entry),
   platform: 'node',
+  plugins: useVue ? [vue()] : [],
+  external: useVue ? [] : undefined,
 });
 const chunk = result.output[0];
 if (!chunk || chunk.type !== 'chunk') throw new Error('验证脚本打包失败');

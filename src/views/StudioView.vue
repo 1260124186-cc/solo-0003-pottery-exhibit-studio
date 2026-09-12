@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue';
 import { useExhibitionFlow } from '../composables/useExhibitionFlow';
 import type { InfoField } from '../services/exhibitService';
-import { evaluateExhibition } from '../domain/readiness';
+import { evaluateExhibition, piecesOf } from '../domain/readiness';
 
 const { state, create, release, togglePiece, updateInfo } = useExhibitionFlow();
 
@@ -14,6 +14,9 @@ const current = computed(() => state.value.exhibitions.find((x) => x.id === sele
  * 不修改任何字段，刷新后由同一份数据重新算出相同结果。
  */
 const readiness = computed(() => evaluateExhibition(current.value ?? null));
+
+/** 当前展览的作品列表（旧数据缺 pieces 字段时兜底为空数组，视图永不直接读 .pieces） */
+const currentPieces = computed<string[]>(() => piecesOf(current.value));
 
 const notice = ref('');
 const newTitle = ref('');
@@ -75,7 +78,7 @@ function edit(field: InfoField, value: string): void {
             <h3>{{ e.title || '未命名展览' }}</h3>
             <p>{{ e.subtitle || '暂无副标题' }}</p>
           </div>
-          <b>{{ e.pieces.length }} 件</b>
+          <b>{{ piecesOf(e).length }} 件</b>
         </div>
       </section>
 
@@ -146,7 +149,7 @@ function edit(field: InfoField, value: string): void {
             v-for="a in state.artworks"
             :key="a.id"
             class="piece"
-            :class="{ chosen: current.pieces.includes(a.id) }"
+            :class="{ chosen: currentPieces.includes(a.id) }"
             @click="togglePiece(current.id, a.id)"
           >
             <div class="piece-art" :style="{ background: a.tone }"><span>{{ a.year }}</span></div>
@@ -155,7 +158,7 @@ function edit(field: InfoField, value: string): void {
               <p>{{ a.artist }} · {{ a.material }}</p>
               <small>{{ a.note }}</small>
             </div>
-            <button>{{ current.pieces.includes(a.id) ? '已编排' : '加入展览' }}</button>
+            <button>{{ currentPieces.includes(a.id) ? '已编排' : '加入展览' }}</button>
           </div>
         </div>
         <div class="notice" v-if="notice">{{ notice }}</div>

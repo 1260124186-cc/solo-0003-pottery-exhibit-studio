@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { exhibitions, artworks } from '../domain/seed';
 import type { Exhibition } from '../domain/models';
-import { releaseDecision } from '../domain/readiness';
+import { releaseDecision, piecesOf } from '../domain/readiness';
 
 const key = 'pottery-exhibit-studio-v1';
 
@@ -77,9 +77,11 @@ export function useExhibitService() {
   const togglePiece = (id: string, art: string): void => {
     const e = state.value.exhibitions.find((x) => x.id === id);
     if (!e) return;
-    e.pieces = e.pieces.includes(art)
-      ? e.pieces.filter((x) => x !== art)
-      : [...e.pieces, art];
+    // 旧数据可能没有 pieces 或不是数组：经兜底读取后写回，杜绝运行时崩溃
+    const current = piecesOf(e);
+    e.pieces = current.includes(art)
+      ? current.filter((x) => x !== art)
+      : [...current, art];
     persist();
   };
 

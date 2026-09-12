@@ -65,6 +65,18 @@ function check(id: string, label: string, ok: boolean, missingReason: string): R
   return { id, label, status: ok ? 'pass' : 'missing', reason: ok ? null : missingReason };
 }
 
+/**
+ * 统一的作品列表读取：pieces 缺失、不是数组或含空白 id（旧版本持久化数据）
+ * 都兜底为干净的字符串数组，任何 UI/计数/操作入口都必须经此访问，
+ * 杜绝 “Cannot read properties of undefined (reading 'length'/'includes')”。
+ * 纯函数，不修改入参。
+ */
+export function piecesOf(e: Partial<Exhibition> | null | undefined): string[] {
+  const raw = e?.pieces;
+  if (!Array.isArray(raw)) return [];
+  return raw.filter((p): p is string => typeof p === 'string' && p.trim().length > 0);
+}
+
 /** 日期必须是 yyyy-mm-dd 且为真实存在的日期；纯字符串比较，不依赖运行环境时区 */
 function isIsoDate(value: unknown): boolean {
   const s = text(value);
@@ -107,7 +119,7 @@ export function evaluateExhibition(input: Partial<Exhibition> | null | undefined
   ];
 
   // 2) 至少一件作品
-  const pieces = Array.isArray(e.pieces) ? e.pieces.filter((p) => text(p).length > 0) : [];
+  const pieces = piecesOf(e);
   const piecesChecks: ReadinessCheck[] = [
     check('hasPiece', '至少编排一件作品', pieces.length > 0, '至少编排一件作品后才能上线'),
   ];
