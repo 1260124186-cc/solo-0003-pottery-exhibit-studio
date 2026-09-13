@@ -1,1 +1,45 @@
-:root{font-family:Inter,'PingFang SC',sans-serif;color:#292725;background:#efeae2}*{box-sizing:border-box}body{margin:0}.studio{min-height:100vh;background:radial-gradient(circle at 85% 0,#fff9ef 0,transparent 35%),#efeae2}header{display:flex;justify-content:space-between;padding:54px 7vw 36px;border-bottom:1px solid #d6cfc5}h1{font:600 clamp(38px,5vw,72px)/1.05 Georgia,serif;margin:10px 0}h2{font:500 46px Georgia,serif;margin:8px 0}h3{margin:7px 0;font-size:18px}.eyebrow{letter-spacing:.18em;font-size:11px;color:#9b6a4c}.intro{color:#756d65}.header-note{align-self:flex-end;color:#877d72;font-size:13px}main{display:grid;grid-template-columns:330px 1fr;gap:52px;padding:38px 7vw}.rail{border-right:1px solid #d6cfc5;padding-right:28px}.new-box{display:flex;gap:8px;margin-bottom:28px}.new-box input{width:100%;background:transparent;border:0;border-bottom:1px solid #b8aea3;padding:12px 0;outline:none}.new-box button,.publish{border:0;background:#2e3934;color:#fff;padding:12px 16px;cursor:pointer}.exhibit-row{padding:18px 0;border-bottom:1px solid #ddd4c9;cursor:pointer;display:flex;justify-content:space-between}.exhibit-row.active{color:#9b5a3f}.exhibit-row span,.exhibit-row p{font-size:12px;color:#91867b}.exhibit-row p{margin:4px 0}.exhibit-row b{font-size:12px;font-weight:400;color:#91867b}.canvas{max-width:920px}.canvas-top{display:flex;justify-content:space-between;align-items:start}.meta{display:flex;gap:28px;padding:18px 0;border-bottom:1px solid #d6cfc5;color:#82786d;font-size:13px}.status{color:#a25f43}.piece-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:30px}.piece{background:#f8f4ee;padding:14px;display:grid;grid-template-columns:110px 1fr;gap:15px;position:relative;cursor:pointer;border:1px solid transparent}.piece.chosen{border-color:#bb7356}.piece-art{height:150px;display:flex;align-items:flex-start;justify-content:flex-end;padding:10px;color:#fff;font-size:12px}.piece p,.piece small{font-size:12px;color:#83796f}.piece button{grid-column:2;border:0;background:transparent;text-align:left;color:#a35e42;padding:0;cursor:pointer}.notice{position:fixed;bottom:25px;right:25px;background:#2e3934;color:white;padding:13px 18px}@media(max-width:800px){main{grid-template-columns:1fr;padding:28px 5vw}.rail{border:0;padding:0}.piece-grid{grid-template-columns:1fr}header{padding:35px 5vw}.header-note{display:none}}
+:root{font-family:Inter,'PingFang SC',sans-serif;color:#292725;background:#efeae2}*{box-sizing:border-box}body{margin:0}.studio{min-height:100vh;background:radial-gradient(circle at 85% 0,#fff9ef 0,transparent 35%),#efeae2}header{display:flex;justify-content:space-between;padding:54px 7vw 36px;border-bottom:1px solid #d6cfc5}h1{font:600 clamp(38px,5vw,72px)/1.05 Georgia,serif;margin:10px 0}h2{font:500 46px Georgia,serif;margin:8px 0}h3{margin:7px 0;font-size:18px}.eyebrow{letter-spacing:.18em;font-size:11px;color:#9b6a4c}.intro{color:#756d65}.header-note{align-self:flex-end;color:#877d72;font-size:13px}main{display:grid;grid-template-columns:330px 1fr;gap:52px;padding:38px 7vw}.rail{border-right:1px solid #d6cfc5;padding-right:28px}.new-box{display:flex;gap:8px;margin-bottom:28px}.new-box input{width:100%;background:transparent;border:0;border-bottom:1px solid #b8aea3;padding:12px 0;outline:none}.new-box button,.publish{border:0;background:#2e3934;color:#fff;padding:12px 16px;cursor:pointer}.exhibit-row{padding:18px 0;border-bottom:1px solid #ddd4c9;cursor:pointer;display:flex;justify-content:space-between}.exhibit-row.active{color:#9b5a3f}.exhibit-row span,.exhibit-row p{font-size:12px;color:#91867b}.exhibit-row p{margin:4px 0}.exhibit-row b{font-size:12px;font-weight:400;color:#91867b}.canvas{max-width:920px}.canvas-top{display:flex;justify-content:space-between;align-items:start}.meta{display:flex;gap:28px;padding:18px 0;border-bottom:1px solid #d6cfc5;color:#82786d;font-size:13px;flex-wrap:wrap}.status{color:#a25f43}.release{border:0;background:#2e3934;color:#fff;padding:12px 18px;cursor:pointer;align-self:center}
+
+/* 作品卡片：主体负责打开详情，编排按钮是独立的显式动作 */
+.piece-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:30px}.piece{background:#f8f4ee;padding:0;display:flex;flex-direction:column;border:1px solid transparent;overflow:hidden}.piece.chosen{border-color:#bb7356}.piece-body{display:grid;grid-template-columns:110px 1fr;gap:15px;padding:14px;cursor:pointer;flex:1;outline:none}.piece-body:focus-visible{box-shadow:inset 0 0 0 2px #9b6a4c}.piece-art{height:150px;display:flex;align-items:flex-start;justify-content:flex-end;padding:10px;color:#fff;font-size:12px}.piece-text p,.piece-text small{font-size:12px;color:#83796f}.piece-text p{margin:4px 0}.piece-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px 14px}.piece-toggle{border:0;background:transparent;text-align:left;color:#a35e42;padding:0;cursor:pointer;font:inherit;font-size:13px;text-decoration:underline;text-underline-offset:3px}.piece-toggle[aria-busy=true]{color:#a89c90;cursor:wait;text-decoration:none}.piece-badge{font-size:12px;color:#bb7356;white-space:nowrap}
+.notice{position:fixed;bottom:25px;right:25px;background:#2e3934;color:white;padding:13px 18px;z-index:30}
+
+/* 详情抽屉 */
+.drawer-layer{position:fixed;inset:0;background:rgba(41,39,37,.42);z-index:40;display:flex;justify-content:flex-end;animation:scrim-in .18s ease-out}
+.drawer{background:#f8f4ee;width:min(460px,100vw);height:100%;overflow-y:auto;padding:28px 30px 36px;display:flex;flex-direction:column;box-shadow:-18px 0 50px rgba(41,39,37,.18);animation:drawer-in .22s ease-out}
+.drawer-head{display:flex;align-items:center;justify-content:space-between}
+.drawer-close{border:1px solid #c9bfb2;background:transparent;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:14px;color:#6f655b}
+.drawer-close:hover{background:#efe8dd}
+.drawer-cover{height:200px;margin:18px 0 8px;display:flex;align-items:flex-start;justify-content:flex-end;padding:12px;color:#fff}
+.drawer-title{font:500 34px Georgia,serif;margin:10px 0 18px}
+.drawer-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin:0 0 18px}
+.drawer-fields div{border-bottom:1px solid #e0d7cb;padding-bottom:10px}
+.drawer-fields dt{font-size:11px;letter-spacing:.14em;color:#9b6a4c;margin-bottom:5px}
+.drawer-fields dd{margin:0;font-size:15px}
+.drawer-note{color:#6f655b;line-height:1.7;margin:0 0 24px}
+.drawer-membership{border-top:1px solid #d6cfc5;padding-top:18px;flex:1}
+.drawer-membership h3{font-size:14px;letter-spacing:.08em;color:#5d554c}
+.drawer-membership ul{list-style:none;margin:10px 0 0;padding:0}
+.drawer-membership li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px dashed #e0d7cb;font-size:14px}
+.drawer-membership em{font-style:normal;font-size:11px;color:#9b6a4c;border:1px solid #d8b9a3;border-radius:10px;padding:2px 9px;white-space:nowrap}
+.drawer-empty{color:#9a8f84;font-size:13px}
+.drawer-actions{display:flex;gap:10px;padding-top:22px;margin-top:22px;border-top:1px solid #d6cfc5}
+.drawer-actions button{flex:1;border:0;padding:13px 16px;cursor:pointer;font:inherit}
+.drawer-add{background:#9b5a3f;color:#fff}
+.drawer-add[aria-busy=true],.drawer-remove[aria-busy=true]{opacity:.55;cursor:wait}
+.drawer-remove{background:#2e3934;color:#fff}
+.drawer-done{background:transparent;border:1px solid #b8aea3 !important;color:#5d554c}
+@keyframes drawer-in{from{transform:translateX(40px);opacity:.6}to{transform:none;opacity:1}}
+@keyframes scrim-in{from{opacity:0}to{opacity:1}}
+
+@media(max-width:800px){main{grid-template-columns:1fr;padding:28px 5vw}.rail{border:0;padding:0}.piece-grid{grid-template-columns:1fr}header{padding:35px 5vw}.header-note{display:none}}
+
+/* 窄屏下抽屉铺满屏幕，字段与按钮纵向排列，保证单手可用 */
+@media(max-width:560px){
+.drawer{width:100vw;padding:20px 20px 28px}
+.drawer-cover{height:160px}
+.drawer-title{font-size:28px}
+.drawer-fields{grid-template-columns:1fr;gap:10px}
+.drawer-actions{flex-direction:column-reverse}
+.drawer-actions button{width:100%}
+}
