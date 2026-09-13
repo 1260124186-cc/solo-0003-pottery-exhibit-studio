@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "test:toast": "rm -rf .test-dist && tsc -p scripts/tsconfig.test.json && printf '{\"type\":\"commonjs\"}\\n' > .test-dist/package.json && node .test-dist/scripts/toastStore.test.js && node .test-dist/scripts/toastStore.realtime.test.js && node scripts/toastComponent.ssr.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
